@@ -1,0 +1,53 @@
+using FacturacionAPI.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configurar la cadena de conexión a la base de datos directamente
+var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+builder.Services.AddDbContext<FacturacionContext>(options =>
+    options.UseSqlServer(connectionString));
+
+// Agregar servicios al contenedor
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configurar el pipeline de solicitudes HTTP
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+
+--------------------------
+
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=Facturacion;User Id=sa;Password=root;TrustServerCertificate=True;"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+

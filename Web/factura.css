@@ -1,0 +1,23 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input {
+    border: 2px solid #f0f0f0;
+	border-radius: 4px;
+	
+}
+
+.form-group.success input {
+    border-color: #09c372;
+}
+
+.form-group.error input {
+    border-color: #ff3860;
+}
+
+.form-group .error {
+    color: #ff3860;
+    
+}
